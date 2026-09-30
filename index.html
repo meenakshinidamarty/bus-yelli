@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bus Yelli? – BMTC</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--ink:#0f2a6b;--b:#1d3f96;--y:#ffc21a;--sky:#e8efff;--cr:#fff6d6;--m:#5b6785;--bg:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#fff;color:var(--ink);font-family:Nunito,"Segoe UI",system-ui,sans-serif;font-size:15px;display:flex;justify-content:center;overflow:hidden}
+.app{width:100%;max-width:430px;height:100%;display:flex;flex-direction:column;background:#fff;min-height:0}
+.bar{background:var(--b);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.bar h1{font-size:19px;font-weight:800;margin:0;flex:1;letter-spacing:.2px}
+.tag{background:#fff;color:var(--b);font-weight:800;font-size:11px;padding:4px 8px;border-radius:8px;transform:rotate(-3deg)}
+.sc{flex:1;min-height:0;overflow-y:auto;display:none;-webkit-overflow-scrolling:touch}
+.sc.on{display:block}
+#ch.on{display:flex;flex-direction:column;gap:14px;padding:18px 16px 10px;background-image:radial-gradient(#dfe6f7 1.2px,transparent 1.2px);background-size:18px 18px}
+.pad{padding:22px 20px 28px}
+.hl{font-size:30px;line-height:1.1;font-weight:800;margin:4px 0 8px}
+.hl span{background:linear-gradient(transparent 58%,var(--y) 58%)}
+.sub{color:var(--m);margin:0 0 22px;line-height:1.5}
+.lab{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--m);margin:0 0 6px}
+.fld{width:100%;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;font:inherit;font-weight:700;background:#fff;color:var(--ink);margin-bottom:16px;appearance:none}
+.pri{width:100%;background:var(--y);color:var(--ink);border:2px solid var(--ink);border-radius:14px;padding:14px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin-top:4px}
+.pri:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.sticker{margin-top:26px;background:var(--cr);border:2px solid var(--ink);border-radius:16px;padding:14px 16px;line-height:1.5;transform:rotate(-1deg)}
+.rt{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:2px dashed #cfd8ee}
+.rt b{background:var(--y);border:2px solid var(--ink);border-radius:10px;padding:3px 9px;font-size:14px;min-width:58px;text-align:center}
+.nav{display:flex;gap:6px;padding:8px 10px;border-top:2px solid var(--ink);background:#fff;flex-shrink:0}
+.nav button{flex:1;background:none;border:2px solid transparent;border-radius:12px;padding:8px 0;font:inherit;font-size:13px;font-weight:800;color:var(--m);cursor:pointer}
+.nav button.on{background:var(--y);border-color:var(--ink);color:var(--ink)}
+.m{max-width:86%;padding:12px 15px;border-radius:18px;line-height:1.5;white-space:pre-wrap;border:2px solid var(--ink)}
+.bt{background:#fff;border-bottom-left-radius:5px;align-self:flex-start;box-shadow:3px 3px 0 var(--ink)}
+.me{background:var(--b);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.ops{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start}
+.cp{background:var(--sky);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.cp:active{background:var(--y)}
+.rail{display:flex;gap:8px;overflow-x:auto;padding:10px 16px;border-top:2px solid var(--ink);background:var(--cr);flex-shrink:0;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail .cp{white-space:nowrap;background:#fff}
+.inp{display:flex;gap:10px;padding:12px 16px;background:#fff;flex-shrink:0;border-top:2px solid var(--ink)}
+.inp input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:14px;padding:11px 14px;font:inherit;outline:none;background:#fff}
+.inp button{background:var(--b);color:#fff;border:2px solid var(--ink);border-radius:14px;padding:0 18px;font:inherit;font-weight:800;cursor:pointer}
+.dots i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--b);margin:0 2px;animation:bn 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bn{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){.dots i{animation:none}}
+.plan{align-self:stretch;background:#fff;border:2px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--ink);overflow:hidden}
+.plan .h{background:var(--y);padding:16px 18px;border-bottom:2px solid var(--ink)}
+.plan .h small{font-weight:800;text-transform:uppercase;letter-spacing:.8px;font-size:11px}
+.plan .h big{display:block;font-size:32px;font-weight:800;line-height:1.1;margin-top:2px}
+.plan .h em{font-style:normal;font-size:13px;font-weight:700}
+.tl{padding:18px 18px 6px}
+.st{display:flex;gap:14px;padding-bottom:16px;position:relative}
+.st:not(:last-child)::before{content:"";position:absolute;left:6px;top:16px;bottom:-2px;border-left:2px dashed var(--b)}
+.st i{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--b);flex-shrink:0;margin-top:3px;z-index:1}
+.st.k i{background:var(--y);border-color:var(--ink)}
+.st b{display:block}.st span{color:var(--m);font-size:13.5px;line-height:1.4}
+.bn{display:inline-block;background:var(--y);border:2px solid var(--ink);border-radius:8px;padding:0 7px;margin-right:6px;font-weight:800}
+.chipr{margin:0 18px 16px;padding:12px 14px;background:var(--sky);border-radius:14px;line-height:1.5;font-size:14px}
+.meter{height:8px;border-radius:5px;background:#fff;border:2px solid var(--ink);margin-top:6px;overflow:hidden}.meter i{display:block;height:100%;background:var(--b)}
+.pb{margin:0 18px 18px;padding:12px 14px;background:var(--cr);border:2px dashed var(--ink);border-radius:14px;line-height:1.5;font-size:14px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+</style></head>
+<body><div class="app">
+<div class="bar">
+ <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="3" y="6" width="28" height="19" rx="5" fill="#ffc21a" stroke="#0f2a6b" stroke-width="2"/><rect x="7" y="10" width="8" height="7" rx="2" fill="#fff" stroke="#0f2a6b" stroke-width="1.5"/><rect x="18" y="10" width="9" height="7" rx="2" fill="#fff" stroke="#0f2a6b" stroke-width="1.5"/><circle cx="10" cy="26" r="3.2" fill="#0f2a6b"/><circle cx="24" cy="26" r="3.2" fill="#0f2a6b"/></svg>
+ <h1 id="ttl">BMTC</h1><span class="tag">demo</span></div>
+
+<div class="sc on" id="home"><div class="pad">
+ <div class="hl">Bus <span>yelli?</span></div>
+ <p class="sub">Tell me where and by when. I'll tell you when to leave, and what to do if the bus ghosts you.</p>
+ <p class="lab">From</p><select class="fld" id="f"></select>
+ <p class="lab">To</p><select class="fld" id="t"></select>
+ <p class="lab">Reach by</p><input class="fld" id="tm" type="time" value="09:00">
+ <button class="pri" id="go">When should I leave?</button>
+ <div class="sticker"><b>Or just chat.</b> Ask about late buses, passes, airport buses, night travel and more in the Bus Yelli? tab.</div>
+</div></div>
+<div class="sc" id="routes"><div class="pad">
+ <div class="hl" style="font-size:24px">Popular <span>routes</span></div>
+ <div class="rt"><b>500D</b><span>Silk Board to Majestic</span></div>
+ <div class="rt"><b>335E</b><span>Majestic to Whitefield</span></div>
+ <div class="rt"><b>G4</b><span>Koramangala to Majestic</span></div>
+ <div class="rt"><b>201</b><span>Jayanagar to Majestic</span></div>
+ <p class="sub" style="margin-top:16px">Sample data for the prototype.</p>
+</div></div>
+<div class="sc" id="me"><div class="pad"><div class="hl" style="font-size:24px">My <span>profile</span></div>
+ <div class="rt"><span>Daily pass</span><b style="margin-left:auto">none</b></div><div class="rt"><span>Saved stops</span><b style="margin-left:auto">0</b></div></div></div>
+
+<div class="sc" id="ch"></div>
+<div class="rail" id="rail" style="display:none"></div>
+<div class="inp" id="inp" style="display:none"><input id="q" placeholder="Type or tap a suggestion" autocomplete="off"><button id="sd">Send</button></div>
+<nav class="nav"><button class="on" data-s="home">Plan</button><button data-s="ch">Bus Yelli?</button><button data-s="routes">Routes</button><button data-s="me">Profile</button></nav>
+</div>
+<script>
+// Prototype data: places, bus numbers, times and reliability are illustrative, not live BMTC data.
+const P={"Majestic":[0,0],"MG Road":[4.5,-1],"Indiranagar":[8,-1],"Koramangala":[5.5,-6],"Jayanagar":[0.5,-7],"HSR Layout":[8,-9],"Silk Board":[7,-10],"Electronic City":[8,-20],"Marathahalli":[14,-4],"Whitefield":[20,-3],"Manyata Tech Park":[7,8],"Hebbal":[0,10],"Yeshwanthpur":[-4,5],"Airport":[0,34]};
+const NAMES=Object.keys(P),BUS=["500D","335E","G4","201F","356CW","KIA-8","MF-1","365","G2","258A"];
+const $=i=>document.getElementById(i);
+["f","t"].forEach(id=>{$(id).innerHTML=NAMES.map(n=>`<option>${n}</option>`).join("")});
+$("f").value="Koramangala";$("t").value="Majestic";
+let C={},asked=null,flow=null;
+const RAIL=["Plan my commute","My bus is late","Which bus goes to Whitefield?","Nearest bus stop","Is it free for women?","Airport bus","Late night travel","Rain today?","Passes and fares","Report a problem","Lost something"];
+$("rail").innerHTML="";RAIL.forEach(x=>{const b=document.createElement("button");b.className="cp";b.textContent=x;b.onclick=()=>ask(x);$("rail").appendChild(b)});
+const fmt=m=>{m=((Math.round(m)%1440)+1440)%1440;let h=Math.floor(m/60),n=m%60,a=h>=12?"PM":"AM";h=h%12||12;return h+":"+String(n).padStart(2,"0")+" "+a};
+const hs=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+const ID=p=>p+"-"+Math.floor(1000+Math.random()*9000);
+function down(){requestAnimationFrame(()=>{$("ch").scrollTop=$("ch").scrollHeight})}
+function show(s){document.querySelectorAll(".sc").forEach(e=>e.classList.toggle("on",e.id===s));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("on",b.dataset.s===s));
+ const c=s==="ch";$("inp").style.display=c?"flex":"none";$("rail").style.display=c?"flex":"none";$("ttl").textContent=c?"Bus Yelli?":"BMTC";
+ if(c&&!$("ch").children.length)start();if(c)down()}
+function add(cls,t){const d=document.createElement("div");d.className="m "+cls;d.textContent=t;$("ch").appendChild(d);down();return d}
+function opts(o){const w=document.createElement("div");w.className="ops";o.forEach(x=>{const b=document.createElement("button");b.className="cp";b.textContent=x;b.onclick=()=>ask(x);w.appendChild(b)});$("ch").appendChild(w);down()}
+function say(t,o){add("bt",t);if(o)opts(o)}
+function start(){say("Namaskara! I'm Bus Yelli?. I can plan your leave time, and help with late buses, passes, airport rides and more.\n\nTry:  “I have class at 9, leaving from Koramangala”",["I have class at 9, leaving from Koramangala","My bus is late","Nearest bus stop","Is it free for women?"])}
+function parse(t){const s=t.toLowerCase();
+ const tm=s.match(/(?:at|by|before|till|@)?\s*\b(\d{1,2})(?:[:.](\d{2}))?\s*(am|pm)?\b/);
+ if(tm&&(tm[3]||tm[2]||/(at|by|before|till|@)\s*\d/.test(s)||/^\s*\d{1,2}\s*$/.test(s))){let h=+tm[1],m=+(tm[2]||0),ap=tm[3];if(h<=24){if(ap==="pm"&&h<12)h+=12;if(ap==="am"&&h===12)h=0;if(!ap&&h>=1&&h<=6)h+=12;C.by=h*60+m}}
+ const found=[];NAMES.forEach(n=>{const i=s.indexOf(n.toLowerCase());if(i>-1)found.push([n,i])});
+ const al=[["HSR Layout",/hsr/],["Manyata Tech Park",/manyata/],["Electronic City",/e-?city|electronic/],["Airport",/airport|kia\b|kempegowda/]];
+ al.forEach(([n,r])=>{const i=s.search(r);if(i>-1&&!found.find(x=>x[0]===n))found.push([n,i])});
+ found.sort((a,b)=>a[1]-b[1]);
+ found.forEach(([n,i])=>{const pre=s.slice(Math.max(0,i-14),i);
+  if(/from\s*$/.test(pre))C.from=n;
+  else if(/(to|reach|at|for|near)\s*$/.test(pre))C.to=n;
+  else if(asked==="from")C.from=n;else if(asked==="to")C.to=n;
+  else if(!C.from)C.from=n;else if(!C.to&&n!==C.from)C.to=n});
+ if(found.length===2&&!/from|to |reach/.test(s)){C.from=found[0][0];C.to=found[1][0]}
+ const w=s.match(/(\d{1,2})\s*(min|minutes|mins)/);if(w&&/walk/.test(s))C.walk=Math.min(30,+w[1]);
+ if(/walk less|no walking|hate walking/.test(s))C.walk=5;
+ if(C.from&&C.to&&C.from===C.to)delete C.to;return found}
+function next(){
+ if(C.mode!=="info"&&C.by==null){asked="by";return["What time do you need to reach?",["8:00 AM","9:00 AM","10:30 AM","6:00 PM"]]}
+ if(!C.from){asked="from";return["Where are you leaving from?",["Koramangala","HSR Layout","Jayanagar","Indiranagar"]]}
+ if(!C.to){asked="to";return["Where are you going?",["Majestic","MG Road","Manyata Tech Park","Whitefield"].filter(x=>x!==C.from)]}
+ if(C.mode!=="info"&&C.walk==null){asked="walk";return["How far are you okay walking, to the stop and after you get down?",["Up to 5 min","Up to 10 min","Up to 15 min"]]}
+ return null}
+function calc(){const a=P[C.from],b=P[C.to],km=Math.hypot(a[0]-b[0],a[1]-b[1])*1.3;
+ const peak=C.by!=null&&((C.by>=480&&C.by<=660)||(C.by>=1020&&C.by<=1230)),tf=peak?1.35:1;
+ const ride=Math.max(8,Math.round(km*3.4*tf)),xfer=km>14,seed=hs(C.from+C.to);
+ return{km,peak,ride,xfer,bus:BUS[seed%BUS.length],bk:BUS[(seed+3)%BUS.length],freq:8+seed%8,rel:Math.max(45,Math.round(78-(peak?12:0)-(xfer?10:0)+(seed%7))),seed}}
+function info(){const r=calc();add("bt",`${C.from} to ${C.to}\nTake ${r.bus}${r.xfer?", then change at Majestic":""}. A bus comes about every ${r.freq} min and the ride is roughly ${r.ride} min.\nBackup: ${r.bk}.`);C.mode=null;opts(["Plan this with a deadline","Nearest bus stop","New trip"])}
+function plan(){const r=calc(),rain=C.rain?12:0,xt=r.xfer?9:0;
+ const wA=Math.min(C.walk,3+r.seed%5),wB=Math.min(C.walk,4+(r.seed>>3)%5),buf=Math.round(r.ride*.1+(100-r.rel)/4)+rain,wait=Math.round(r.freq/2);
+ const total=wA+wait+r.ride+xt+wB+buf,leave=C.by-total,atStop=leave+wA,dep=atStop+wait,drop=C.by-wB-buf;
+ const h=document.createElement("div");h.className="plan";
+ h.innerHTML=`<div class="h"><small>${C.from} to ${C.to}</small><big>Leave by ${fmt(leave)}</big><em>to reach by ${fmt(C.by)}${rain?" · rain padding on":""}</em></div>
+ <div class="tl">
+  <div class="st k"><i></i><div><b>${fmt(leave)} · Leave home</b><span>${wA} min walk to the stop</span></div></div>
+  <div class="st"><i></i><div><b>${fmt(atStop)} · At the stop</b><span><span class="bn">${r.bus}</span>due around ${fmt(dep)}, every ~${r.freq} min</span></div></div>
+  <div class="st"><i></i><div><b>${fmt(drop)} · Get down at ${C.to}</b><span>${r.ride} min ride${r.xfer?" plus a change at Majestic":""}, then ${wB} min walk</span></div></div>
+  <div class="st k"><i></i><div><b>${fmt(C.by)} · You're there</b><span>${buf} min cushion already included</span></div></div>
+ </div>
+ <div class="chipr"><b>${r.peak?"Peak traffic":"Off-peak"}.</b> ${r.peak?"Ride padded by 35%. ":""}${r.bus} is on time about ${r.rel} in 100 trips here.<div class="meter"><i style="width:${r.rel}%"></i></div></div>
+ <div class="pb"><b>Plan B:</b> not at the stop by ${fmt(atStop+8)}? Hop on <b>${r.bk}</b> (about ${r.freq+4} min gap), or share an auto to the nearest Namma Metro station. Past ${fmt(C.by-r.ride-wB-5)}, book a cab.</div>`;
+ $("ch").appendChild(h);down();asked=null;
+ opts(["Walk less","Change arrival time",C.rain?"Rain is over":"Rain today?","Why this time?","New trip"])}
+const INT=[
+ [/change (arrival )?time|different time|earlier|leave later/,()=>{delete C.by;asked="by";say("What time do you need to reach?",["8:00 AM","9:00 AM","10:30 AM","6:00 PM"])}],
+ [/why this time|explain|how did you/,()=>{if(C.from&&C.to&&C.by!=null&&C.walk!=null)say("I count backwards from your arrival time: the final walk, a cushion (bigger when the bus is less reliable, or when it's raining), the ride (longer in peak traffic), any change, the average wait, and your walk to the stop. Change your walking limit or arrival time and the leave time moves.",["Walk less","Change arrival time","New trip"]);else say("Plan a trip first and I'll show you how I worked it out.",["Plan my commute"])}],
+ [/plan this|with a deadline/,()=>{C.mode=null;const n=next();if(n)say(n[0],n[1]);else plan()}],
+ [/night|midnight|11 ?pm|last bus|after 10/,()=>say("Late-night buses run on select routes and come less often. Expect gaps of 30 minutes or more after 11 PM.\n\nMy tips: check the last bus before you head out, keep a cab or Namma Metro backup, and share your trip with a friend.",["Plan my commute","Safety tips","Plan B options"])],
+ [/\blate\b|delay|not (coming|come|here|arriv)|no bus|missed/,()=>{say("Ugh. Here's a quick way to decide:\n\n1. Wait up to 1.5 times the usual gap for that bus.\n2. After that, switch to the backup bus or a share auto.\n3. If it's tight, tell me the stop and I'll re-plan.",["Plan B options","Plan my commute","Report a problem"])}],
+ [/plan b|backup|alternative|option/,()=>{if(C.from&&C.to){const r=calc();say(`Backups for ${C.from} to ${C.to}:\n• ${r.bk}, next in about ${r.freq+4} min\n• Share auto to the nearest Namma Metro station\n• Cab if you're past the cut-off`,["Plan my commute","New trip"])}else{say("Tell me your route first and I'll line up backups.",["I have class at 9, leaving from Koramangala","Reach Majestic by 8"])}}],
+ [/women|shakti|ladies|girls/,()=>say("Under the Shakti scheme, women can travel free in ordinary (non-AC) BMTC buses with a valid ID. AC buses are ticketed as usual.\n\nDetails can change, so confirm on the official BMTC channels.",["Passes and fares","Plan my commute","Safety tips"])],
+ [/student|concession|senior|elder/,()=>say("Students and senior citizens can get concessional passes. Carry your ID or college proof and apply at a BMTC pass counter.\n\nExact eligibility and rates: check with BMTC before you apply.",["Passes and fares","Plan my commute"])],
+ [/pass|fare|price|cost|ticket|charge|how much|upi|cash|conductor/,()=>say("Fares depend on distance stages and bus type. You can pay the conductor, or by UPI or card where the bus supports it. Daily and monthly passes exist for ordinary and AC buses.\n\nThis prototype doesn't have live fare tables.",["Is it free for women?","Students and seniors","Which bus goes to Whitefield?"])],
+ [/airport|vayu|vajra|flight/,()=>{say("Vayu Vajra AC buses connect many parts of the city to the airport. It's a long ride, so plan with a big cushion.\n\nPick where you're starting from:",["Koramangala","Indiranagar","Majestic","Jayanagar"]);C.to="Airport";C.mode=null;asked="from"}],
+ [/rain|monsoon|wet|storm/,()=>{C.rain=true;if(C.from&&C.to&&C.by!=null&&C.walk!=null){add("bt","Rain adds delays. I padded 12 min and re-planned:");plan()}else{say("Rain means slower roads and longer waits. I'll add a 12 minute cushion. Tell me your trip and I'll plan around it.",["I have class at 9, leaving from Koramangala","Reach Majestic by 8"])}}],
+ [/rain is over|dry now|no rain/,()=>{C.rain=false;if(C.from&&C.to&&C.by!=null&&C.walk!=null)plan();else say("Got it, no rain padding.")}],
+ [/safety|safe|harass|eve.?teas|unsafe|emergency|scared/,()=>say("Your safety comes first.\n• In an emergency, dial 112.\n• Sit near the conductor or the front, and share your live location with someone.\n• For non-urgent issues, I can log a complaint.",["Report a problem","Plan my commute"])],
+ [/lost|forgot|left (my|a)|wallet|bag left|phone left/,()=>{flow="lost1";say("Sorry about that. What did you lose?",["Bag","Phone","Wallet","Other"])}],
+ [/complain|problem|report|overcrowd|crowded|rude|didn'?t stop|not stop|dirty|broken/,()=>{flow="cmp1";say("Thanks for flagging it. What happened?",["Overcrowded","Bus didn't stop","Staff behaviour","Dirty or broken bus"])}],
+ [/nearest|near me|stop near|bus stop|where.*stop/,()=>{flow="near";say("Which area are you in?",["Koramangala","Indiranagar","Jayanagar","HSR Layout"])}],
+ [/ordinary|ac bus|difference|types? of bus|which type|big ?10/,()=>say("Quick guide:\n• Ordinary: cheapest, frequent, most routes.\n• AC (Vayu Vajra and others): cooler, pricier, good for long rides and the airport.\n• Metro feeder: short hops from Namma Metro stations.",["Airport bus","Passes and fares"])],
+ [/metro|feeder|last mile|last-mile/,()=>say("Namma Metro is best for the long stretch and buses for the last mile. Tell me your Metro station and where you're headed and I'll plan the bus part.",["From Indiranagar to Manyata Tech Park","From MG Road to Whitefield"])],
+ [/which bus|bus (goes|to|for|number)|route to|how (do i|to) (get|reach|go)/,()=>{C.mode="info";const f=parse(lastQ);const n=next();if(n)say(n[0],n[1]);else info()}],
+ [/what can you|help|menu|options/,()=>say("I can help with:\n• When to leave for a deadline\n• Late buses and Plan B\n• Which bus goes where\n• Nearest stops\n• Fares, passes, Shakti, concessions\n• Airport and night travel\n• Rain, safety, lost items, complaints",["Plan my commute","My bus is late","Airport bus","Late night travel"])],
+ [/thank|thanks|awesome|great/,()=>say("Happy to help. Safe travels!",["New trip","Nearest bus stop"])],
+];
+let lastQ="";
+function reply(q){lastQ=q;const s=q.toLowerCase().trim();
+ if(/^(new trip|start over|reset|plan my commute)$/.test(s)){C={};asked=null;flow=null;say("Sure. Where are you headed, and by when?",["I have class at 9, leaving from Koramangala","Office by 10:30 from HSR Layout","Reach Majestic by 8"]);return}
+ if(flow){const f=flow;
+  if(f==="lost1"){flow="lost2";say("Got it. Which route or stop, and about when?",["Majestic, this morning","Koramangala, yesterday","Not sure"]);return}
+  if(f==="lost2"){flow=null;say(`Report filed (demo). ID: ${ID("BM-LF")}. The depot will check and update you.`,["Plan my commute","Report a problem"]);return}
+  if(f==="cmp1"){flow="cmp2";say("Which bus number or stop?",["Don't remember","Majestic","Koramangala"]);return}
+  if(f==="cmp2"){flow=null;say(`Logged (demo). ID: ${ID("BM-CMP")}. You'll get an update within 48 hours.`,["Safety tips","Plan my commute"]);return}
+  if(f==="near"){const f2=parse(q);const a=NAMES.find(n=>s.includes(n.toLowerCase()))||(/hsr/.test(s)?"HSR Layout":null);if(a){flow=null;const h=hs(a);say(`Stops near ${a}:\n• ${a} Main Road stop · ${3+h%3} min walk\n• ${a} Circle · ${6+h%3} min walk\n• ${a} Depot gate · ${9+h%4} min walk\n\nThe real app would use your GPS.`,["Plan my commute","Which bus goes to Whitefield?"]);return}
+   say("Pick an area:",["Koramangala","Indiranagar","Jayanagar","HSR Layout"]);return}}
+ if(asked==="walk"){const m=s.match(/\d+/);if(m)C.walk=Math.min(30,+m[0])}
+ const slot=asked&&(asked==="walk"?C.walk!=null:(asked==="by"?/\d/.test(s):NAMES.concat(["hsr","manyata","airport","e-city","electronic"]).some(n=>s.includes(n.toLowerCase()))));
+ if(!slot){for(const [re,fn] of INT){if(re.test(s)){fn();return}}}
+ const before=JSON.stringify(C);parse(q);
+ if(asked==="by"&&C.by==null){say("Hmm, I couldn't read that time. Try “9:00 AM” or just “9”.",["8:00 AM","9:00 AM","10:30 AM"]);return}
+ if(/^(hi|hello|hey|namaskara)\b/.test(s)&&before==="{}"){say("Namaskara! Where do you need to be, and by when?",["I have class at 9, leaving from Koramangala","My bus is late","Nearest bus stop"]);return}
+ if(JSON.stringify(C)===before&&!asked){say("Not sure I got that. Tell me a place and a time, or pick one:",["Plan my commute","My bus is late","Passes and fares","Airport bus"]);return}
+ const n=next();if(n){say(n[0],n[1]);return}
+ if(C.mode==="info")info();else plan()}
+function ask(t){t=t.trim();if(!t)return;document.querySelectorAll(".ops").forEach(e=>e.remove());add("me",t);$("q").value="";
+ const d=add("bt","");d.innerHTML='<span class="dots"><i></i><i></i><i></i></span>';setTimeout(()=>{d.remove();reply(t)},500)}
+$("sd").onclick=()=>ask($("q").value);$("q").onkeydown=e=>{if(e.key==="Enter")ask($("q").value)};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>show(b.dataset.s));
+$("go").onclick=()=>{if($("f").value===$("t").value){alert("Choose two different places");return}
+ const[h,m]=$("tm").value.split(":").map(Number);C={from:$("f").value,to:$("t").value,by:(h||0)*60+(m||0)};flow=null;
+ show("ch");$("ch").innerHTML="";add("me",`${C.from} to ${C.to}, reach by ${fmt(C.by)}`);const n=next();say(n[0],n[1])};
+</script></body></html>
